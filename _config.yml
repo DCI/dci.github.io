@@ -3,9 +3,9 @@
 # ----------------------- #
 
 url: http://DCI.github.io
-title: My Octopress Blog
-subtitle: A blogging framework for hackers.
-author: Your Name
+title: DCI - Data Context Interaction
+subtitle: A New Role-Based Paradigm for specifying collaborating objects.
+author: DCI
 simple_search: http://google.com/search
 description:
 
@@ -39,7 +39,7 @@ rdiscount:
     - autolink
     - footnotes
     - smart
-pygments: false # default python pygments have been replaced by pygments.rb
+pygments: true # default python pygments have been replaced by pygments.rb
 
 paginate: 10          # Posts per page on the blog index
 pagination_dir: blog  # Directory base for pagination URLs eg. /blog/page/2/
