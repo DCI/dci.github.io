@@ -6,7 +6,7 @@ category: examples
 
 ## DCI in Scala
 
-By annotating a plain Scala class with `@context` we allow it to be a DCI Context where we can define Roles and role methods. The names of object identifiers act as Role names and Roles are defined with a `role` keyword:
+By annotating a plain Scala class with @context we allow it to be a DCI Context where we can define Roles and role methods. The names of object identifiers act as Role names and Roles are defined with a 'role' keyword:
 ```Scala
 @context
 class MoneyTransfer(Source: Account, Destination: Account, amount: Int) {
