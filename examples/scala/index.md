@@ -56,4 +56,4 @@ So the Data objects passed into the Context are never modified or wrapped in any
 ### Credits
 - Marc Grue, author of the Scala macro
 - Risto Välimäki for [inspiration](https://groups.google.com/d/msg/object-composition/ulYGsCaJ0Mg/rF9wt1TV_MIJ)
-- Rune Runch for inspiration with the [Marvin](http://fulloo.info/Examples/Marvin/Introduction/) language
+- Rune Funch for inspiration with the [Marvin](http://fulloo.info/Examples/Marvin/Introduction/) language
