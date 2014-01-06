@@ -24,6 +24,10 @@ header {
 	background: #E5FFE5;
 }
 
+body {
+	margin-bottom: 10em;
+}
+
 header #icon { display: block; float: left; margin: 0.5em 0; }
 
 nav ul { float: right; margin: 0; }

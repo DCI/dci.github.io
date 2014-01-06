@@ -4,6 +4,8 @@ title: Squeak Examples
 category: examples
 ---
 
+# DCI in Squeak
+
 Squeak is a dialect of Smalltalk. DCI/Squeak is an extension of Squeak to support code written according to the DCI paradigm. BabyIDE is an experimental interactive development environment that supports the DCI paradigm with specialized browsers for its different perspectives. The IDE is described in section 3 in The Common Sense of Object Oriented Programming.
 
 A ZIP file containing all you need for running Squeak/DCI in Windows XP can be downloaded from BabyIDE.ZIP. See its README file for more details.For other operating systems, you need to install Squeak on your computer. Go to http://www-1.squeak.org/ for details. The above ZIP file contains the .image and .changes files you need to browse the code and run the examples.
@@ -38,8 +40,6 @@ More about the Squeak language can be found at http://wiki.squeak.org/squeak/185
 The links below give readable listings of the Squeak/DCI examples.
 The listings have been produced programmatically from a Squeak image containing the BabyIDE development environment and all examples.
 
-{% for p in site.pages %}
-{% if p.category == "squeak" %}
+{% for p in site.pages | sort:"name" %}{% if p.category == "squeak" %}
 - [{{p.title}}]({{p.url}}) - {{p.description}}
-{% endif %}
-{% endfor %}
+{% endif %}{% endfor %}

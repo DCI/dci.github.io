@@ -24,8 +24,5 @@ A Context is the namespace of its Roles. A Role is the namespace of its RoleMeth
 
 In the following, the examples are organized by programming language. Each set of examples is introduced by a short description of the language and its conventions for implementing DCI.
 
-{% for p in site.pages %}
-{% if p.category == "examples" %}
-- [{{p.title}}]({{p.url}})
-{% endif %}
-{% endfor %}
+- [Squeak Examples](squeak/)
+- [Scala Examples](scala/)
