@@ -16,10 +16,10 @@ safe: true
 
 navigation:
   - text: Introduction
-    url: /introduction
+    url: /introduction/
   - text: Documents
-    url: /documents
+    url: /documents/
   - text: Examples
-    url: /examples
+    url: /examples/
   - text: FAQ
-    url: /faq
+    url: /faq/
