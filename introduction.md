@@ -16,7 +16,7 @@ If you want an even more laid-back introduction, have a look at these flicks:
 - [The DCI Architecture: Supporting the Agile Agenda](http://www.leansoftwarearchitecture.com/home/dci-tutorials)
 by Jim Coplien
 - [DCI in Practice](http://www.leansoftwarearchitecture.com/home/dci-tutorials)
-by Rickard &#214;berg.
+by Rickard Öberg.
 - [DCI: Re-thinking the foundations of object-orientation and of programming](http://www.leansoftwarearchitecture.com/home/dci-tutorials)
 by Trygve Reenskaug.
 

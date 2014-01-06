@@ -5,5 +5,6 @@ pygments: true
 permalink: pretty
 
 lsi: false
+encoding: utf-8
 
 safe: true
