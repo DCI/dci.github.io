@@ -1,8 +1,6 @@
 ---
 layout: default
 title: BB3Greed
-category: squeak
-description: A clumsy implementation of the game of Greed.
 ---
 
 # Visualizing a simple process with Roles and Interactions

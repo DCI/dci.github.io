@@ -1,8 +1,6 @@
 ---
 layout: default
 title: BB2Shapes
-category: squeak
-description: An animation of a universe of interacting objects
 ---
 
 # Visualizing a simple process with Roles and Interactions

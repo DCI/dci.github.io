@@ -28,9 +28,9 @@
         <a id="icon" href="{{ site.baseurl }}"><img src="/static/img/dci.png" alt="DCI"></img></a>
         <nav>
             <ul>
-                {% assign pages_list = site.pages %}
-                {% assign group = 'navigation' %}
-                {% include pages_list %}
+{% for link in site.navigation %}
+  {% if page.url == link.url or page.layout == link.layout %}<li class="active"><a href="{{link.url}}">{{link.text}}</a></li>{%else%}<li><a href="{{link.url}}">{{link.text}}</a></li>{% endif %}
+{% endfor %}
             </ul>
         </nav>
     </div>

@@ -12,3 +12,14 @@ encoding: utf-8
 markdown: redcarpet
 
 safe: true
+
+
+navigation:
+  - text: Introduction
+    url: /introduction
+  - text: Documents
+    url: /documents
+  - text: Examples
+    url: /examples
+  - text: FAQ
+    url: /faq

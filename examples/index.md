@@ -2,6 +2,13 @@
 layout: default
 title: Examples
 weight: 3
+
+examples:
+  - text: Squeak Examples
+    url: squeak/
+  - text: Scala Examples
+    url: scala/
+
 ---
 
 # Examples
@@ -24,5 +31,5 @@ A Context is the namespace of its Roles. A Role is the namespace of its RoleMeth
 
 In the following, the examples are organized by programming language. Each set of examples is introduced by a short description of the language and its conventions for implementing DCI.
 
-- [Squeak Examples](squeak/)
-- [Scala Examples](scala/)
+{% for link in page.examples %}
+- [{{link.text}}]({{link.url}}){% endfor %}

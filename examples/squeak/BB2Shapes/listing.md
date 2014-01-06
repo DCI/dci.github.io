@@ -1,7 +1,6 @@
 ---
 layout: default
 title: BB2Shapes
-description: An animation of a universe of interacting objects
 ---
 
 ```smalltalk
