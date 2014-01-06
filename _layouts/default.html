@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>{{ page.title }}</title>
+    <link href="http://feeds.feedburner.com/egonelbre" rel="alternate" title="DCI - Data Context Interaction" type="application/atom+xml" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    
+    <!-- Google Webfonts -->
+    <link href='http://fonts.googleapis.com/css?family=Modern+Antiqua|Lora' rel='stylesheet' type='text/css' />
+    
+    <link rel="stylesheet" href="/static/css/syntax.css" type="text/css" />
+    <link rel="stylesheet" href="/static/css/main.css" type="text/css" media="screen, projection">
+
+    <script src="/static/js/scale.fix.js"></script>
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+<header>
+    <h1>DCI - Data Context Interaction</h1>
+    <div id="main-menu">
+        {% for page in site.pages %}
+            <a href="{{page.url}}">{{page.title}}</a>
+        {% endfor %}
+    </div>
+</header>
+<section id="content">
+    {{ content }}
+</section>
+
+</body>
+</html>

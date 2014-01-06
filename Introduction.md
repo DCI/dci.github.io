@@ -1,4 +1,8 @@
-## Introduction
+---
+layout: default
+category: main
+title: Introduction
+---
 
 Want a quick introduction to DCI? First, it stands for _Data, Context_ and _Interaction_. Those are the three fundamental elements of the DCI paradigm.
 
@@ -10,7 +14,7 @@ If you want an even more laid-back introduction, have a look at these flicks:
 - [The DCI Architecture: Supporting the Agile Agenda](http://www.leansoftwarearchitecture.com/home/dci-tutorials)
 by Jim Coplien
 - [DCI in Practice](http://www.leansoftwarearchitecture.com/home/dci-tutorials)
-by Rickard Öberg.
+by Rickard &#214;berg.
 - [DCI: Re-thinking the foundations of object-orientation and of programming](http://www.leansoftwarearchitecture.com/home/dci-tutorials)
 by Trygve Reenskaug.
 
