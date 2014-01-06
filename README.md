@@ -1,6 +1,6 @@
 # DCI - Data Context Interaction
 
-This is the repository for DCI site at (dci.github.io)[http://dci.github.io].
+This is the repository for DCI site at [dci.github.io](http://dci.github.io).
 
 To view this site locally you'll need to install:
 
