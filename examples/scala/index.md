@@ -7,7 +7,8 @@ category: examples
 ## DCI in Scala
 
 By annotating a plain Scala class with @context we allow it to be a DCI Context where we can define Roles and role methods. The names of object identifiers act as Role names and Roles are defined with a 'role' keyword:
-```Scala
+
+```scala
 @context
 class MoneyTransfer(Source: Account, Destination: Account, amount: Int) {
 
@@ -27,8 +28,10 @@ class MoneyTransfer(Source: Account, Destination: Account, amount: Int) {
   }
 }
 ```
+
 The annotation is a macro that will transform the above source code at compile time to the equivalent of the following code as though we had written this from the beginning:
-```Scala
+
+```scala
 class MoneyTransfer(Source: Account, Destination: Account, amount: Int) {
   
   Source_withdraw()
@@ -43,6 +46,7 @@ class MoneyTransfer(Source: Account, Destination: Account, amount: Int) {
   }
 }
 ```
+
 As you see, the role methods have been lifted into the Context namespace by being prefixed with the role name, like in RoleName_roleMethod(). 
 
 So the Data objects passed into the Context are never modified or wrapped in any way but simply calls the newly created role methods now living in the Context scope.

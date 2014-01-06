@@ -1,10 +1,14 @@
 permalink: /blog/:year/:month/:day/:title
 
+exclude: ["README.md"]
+
 destination: _site
 pygments: true
 permalink: pretty
 
 lsi: false
 encoding: utf-8
+
+markdown: redcarpet
 
 safe: true

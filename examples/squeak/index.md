@@ -12,18 +12,24 @@ The code may look unreadable to a reader more used to a mainstream language such
 
 The Smalltalk (and Squeak) syntax is more informative
 
-	receiver.selector (arg1, arg2, ...) 
-	fileDirectory.copy (file1, file2);
+```java
+receiver.selector(arg1, arg2, ...) 
+fileDirectory.copy(file1, file2);
+```
 
 The Smalltalk (and Squeak) syntax is more informative
 
-	receiver arg1Name: arg1 arg2Name: arg2. 
-	fileDirectory copyFrom: file1 to: file2.
+```smalltalk
+receiver arg1Name: arg1 arg2Name: arg2. 
+fileDirectory copyFrom: file1 to: file2.
+```
 
 Internally, the Squeak compiler immediately transforms the above syntax to the mainstream form:
 
-	receiver arg1name:arg2Name (arg1, arg2). 
-	fileDirectory copyFrom:to: (file1, file2).
+```smalltalk
+receiver arg1name:arg2Name (arg1, arg2). 
+fileDirectory copyFrom:to: (file1, file2).
+```
 
 This works because the colon (:) is a legal character in a message selector. It follows that the number of colons in a selector equals the number of arguments.
 
