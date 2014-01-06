@@ -19,8 +19,9 @@
 
 header {
 	padding: 0.5em;
-	margin-bottom: 1em;
-	border-bottom: 1px solid #ccc;
+	margin-bottom: 3em;
+	border-bottom: 1px solid #5EC5A8;
+	background: #E5FFE5;
 }
 
 header #icon { display: block; float: left; margin: 0.5em 0; }
@@ -36,16 +37,27 @@ nav a {
 	display: block;
 	margin-top: 10px;
 	padding: 10px 20px;
+	font-size: 18px;
 }
 
 nav a:hover {
-	background: #eee;
+	background: rgba(255,255,255,0.5);
 }
 
 nav .active a {
 	color: white;
 	background: #5EC5A8;
 }
+
+code {
+	display: block;
+    border: 1px solid #ddd;
+    padding: 0.5em 0.5em;
+    margin-bottom: 20px;
+    margin-left: 30px;
+
+    font-family: monospace;
+} 
 
 /* #Page Styles
 ================================================== */

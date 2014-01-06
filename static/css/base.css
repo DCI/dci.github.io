@@ -66,9 +66,9 @@
 		font-family: "Georgia", "Times New Roman", serif;
 		font-weight: normal; }
 	h1 a, h2 a, h3 a, h4 a, h5 a, h6 a { font-weight: inherit; }
-	h1 { font-size: 42px; line-height: 46px; margin-bottom: 10px;}
-	h2 { font-size: 30px; line-height: 36px; margin-bottom: 8px; }
-	h3 { font-size: 24px; line-height: 30px; margin-bottom: 6px; }
+	h1 { font-size: 42px; line-height: 46px; margin-bottom: 16px;}
+	h2 { font-size: 30px; line-height: 36px; margin-bottom: 12px; }
+	h3 { font-size: 24px; line-height: 30px; margin-bottom: 8px; }
 	h4 { font-size: 20px; line-height: 26px; margin-bottom: 2px; }
 	h5 { font-size: 16px; line-height: 24px; }
 	h6 { font-size: 14px; line-height: 21px; }

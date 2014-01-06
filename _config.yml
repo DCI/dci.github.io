@@ -2,6 +2,7 @@ permalink: /blog/:year/:month/:day/:title
 
 destination: _site
 pygments: true
+permalink: pretty
 
 lsi: false
 
