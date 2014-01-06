@@ -1,10 +1,10 @@
 ---
 layout: default
-title: Introduction
-weight: 1
+title: Documents
+weight: 2
 ---
 
-# Introduction to DCI
+# Documents
 
 Want a quick introduction to DCI? First, it stands for _Data, Context_ and _Interaction_. Those are the three fundamental elements of the DCI paradigm.
 

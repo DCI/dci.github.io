@@ -3,11 +3,13 @@ layout: default
 title: DCI - Data Context Interaction
 ---
 
+# DCI - Data Context Interaction
+
 Stub of the original website at [fulloo.info](http://fulloo.info/).
 
 Example link to a document: [Common Sense Article](/documents/commonsense.pdf).
 
-Example link to another document: [Introduction](/introduction).
+Example link to another document: [Introduction](introduction.html).
 
 ## A New Role-Based Paradigm for specifying collaborating objects
 
