@@ -27,7 +27,7 @@ class MoneyTransfer(Source: Account, Destination: Account, amount: Int) {
   }
 }
 ```
-The annotation is a macro that will transform the above source code at compile time to the equivalent of the following code as though we had written this form the beginning:
+The annotation is a macro that will transform the above source code at compile time to the equivalent of the following code as though we had written this from the beginning:
 ```Scala
 class MoneyTransfer(Source: Account, Destination: Account, amount: Int) {
   
