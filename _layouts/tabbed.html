@@ -1,0 +1,16 @@
+---
+layout: default
+---
+
+<div class="three columns sidebar">
+	<nav class="three columns">
+		<ul>
+{% for tab in page.tabs %}
+			<li><a href="#{{tab}}">{{tab}}</a></li>{% endfor %}
+		</ul>
+	</nav>
+	&nbsp;
+</div>
+<div class="twelve columns">
+	{{ content }}
+</div>

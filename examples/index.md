@@ -6,6 +6,8 @@ weight: 3
 examples:
   - text: Squeak Examples
     url: squeak/
+  - text: C++ Examples
+    url: cpp/
   - text: Scala Examples
     url: scala/
 

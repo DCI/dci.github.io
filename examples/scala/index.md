@@ -1,7 +1,6 @@
 ---
 layout: default
 title: Scala Examples
-category: examples
 ---
 
 ## DCI in Scala

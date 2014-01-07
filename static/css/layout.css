@@ -61,7 +61,11 @@ code {
     margin-left: 30px;
 
     font-family: monospace;
-} 
+}
+
+.sidebar > nav {
+	position: fixed;
+}
 
 /* #Page Styles
 ================================================== */

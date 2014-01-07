@@ -1,0 +1,1137 @@
+---
+layout: default
+title: C++ Account example
+---
+
+<!-- saved from url=(0066)#Data -->
+
+<link rel="stylesheet" type="text/css" title="Tabs" href="./index_files/tabs.css">
+<link rel="StyleSheet" href="./index_files/fonts.css" type="text/css" media="screen">
+<style type="text/css"></style></head>
+
+<a id="Domain"></a>
+<ul id="tabs">
+<li id="LITop"><a href="#Top">Top of File</a></li>
+<li id="LIDomain"><a href="#Domain">Data Classes</a></li>
+<li id="LIContext"><a href="#Context">Context</a></li>
+<li id="LIRoles"><a href="#Roles">Roles</a></li>
+<li id="LIUtilities"><a href="#Utilities">Utilities</a></li>
+<li id="LIMain"><a href="#Main">Main</a></li>
+</ul>   
+<h2>Data Classes</h2>
+
+<a id="Account"></a>
+<pre style="font-family:courier;;font-size:14px"><i><font color="#0000FF"><code>
+/*
+ *  Account.h
+ *  AgileBook
+ *
+ *  Created by James Coplien on 9/2/08.
+ *  Copyright 2011 Gertrud &amp; Cope. All rights reserved.
+ *
+ */<font color="black"></font></code></font></i><font color="#0000FF"><code><font color="black">
+
+
+<i><font color="red">#ifndef _ACCOUNT_H<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#define _ACCOUNT_H<font color="black"></font></font></i><font color="red"><font color="black">
+
+<i><font color="red">#include &lt;string&gt;<font color="black"></font></font></i><font color="red"><font color="black">
+using namespace std;
+
+class Account {
+public:
+	string accountID(void) const;
+	Account(void);
+private:
+	int acct;
+};
+
+<i><font color="red">#endif<font color="black"></font></font></i></font></font></font></font></font></font></font></code></font></pre><font color="#0000FF"><font color="red"><font color="black"><font color="red"><font color="black"><font color="red"><font color="black">
+
+<a id="CheckingAccount"><hr></a>
+<pre style="font-family:courier;;font-size:14px"><i><font color="#0000FF"><code>/*
+ *  CheckingAccount.h
+ *  AgileBook
+ *
+ *  Created by James Coplien on 9/17/08.
+ *  Copyright 2011 Gertrud &amp; Cope. All rights reserved.
+ *
+ */<font color="black"></font></code></font></i><font color="#0000FF"><code><font color="black">
+
+
+<i><font color="red">#ifndef _CHECKINGACCOUNT_H<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#define _CHECKINGACCOUNT_H<font color="black"></font></font></i><font color="red"><font color="black">
+
+<i><font color="red">#include "Account.h"<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include "Currency.h"<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include "TransferMoneySource.h"<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include "MyTime.h"<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include &lt;string&gt;<font color="black"></font></font></i><font color="red"><font color="black">
+
+using namespace std;
+
+class XferMoneyContext;
+class PayBillsContext;
+
+class CheckingAccount:
+		public Account,
+		public TransferMoneySink<checkingaccount> {
+public:
+	CheckingAccount(void);
+private:
+	<i><font color="#0000FF">// These functions can be virtual if there are<font color="black"></font></font></i><font color="#0000FF"><font color="black">
+	<i><font color="#0000FF">// specializations of CheckingAccount<font color="black"></font></font></i><font color="#0000FF"><font color="black">
+	Currency availableBalance(void);
+	void decreaseBalance(Currency);
+	void increaseBalance(Currency);
+	void updateLog(string, MyTime, Currency);
+private:
+	Currency availableBalance_;
+};
+
+<i><font color="red">#endif<font color="black"></font></font></i></font></font></font></font></checkingaccount></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></code></font></pre><font color="#0000FF"><font color="red"><font color="red"><font color="#0000FF"><font color="black"><font color="#0000FF"><font color="black"><font color="red"><font color="black">
+
+
+<a id="InvestmentAccount"><hr></a>
+<pre style="font-family:courier;;font-size:14px"><i><font color="#0000FF"><code>/*
+ *  InvestmentAccount.h
+ *  AgileBook
+ *
+ *  Created by James Coplien on 9/2/08.
+ *  Copyright 2011 Gertrud &amp; Cope. All rights reserved.
+ *
+ */<font color="black"></font></code></font></i><font color="#0000FF"><code><font color="black">
+
+<i><font color="red">#ifndef _INVESTMENTACCOUNT_H<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#define _INVESTMENTACCOUNT_H<font color="black"></font></font></i><font color="red"><font color="black">
+
+<i><font color="red">#include "Account.h"<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include "Currency.h"<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include "TransferMoneySource.h"<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include "MyTime.h"<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include &lt;string&gt;<font color="black"></font></font></i><font color="red"><font color="black">
+
+using namespace std;
+
+class XferMoneyContext;
+class PayBillsContext;
+
+class InvestmentAccount:
+	public Account,
+	public TransferMoneySource<investmentaccount> {
+public:
+friend class TransferMoneySource<investmentaccount>;
+	InvestmentAccount(void);
+	Currency availableBalance(void);
+	void increaseBalance(Currency);
+	void decreaseBalance(Currency);
+	void updateLog(string, MyTime, Currency);
+private:
+	Currency availableBalance_;
+};</investmentaccount></investmentaccount></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></code></font></pre><font color="#0000FF"><font color="red"><font color="black"><font color="red"><font color="black"><font color="red"><font color="black">
+
+<pre style="font-family:courier;;font-size:14px"><i><font color="#0000FF"><code>/*
+ *  InvestmentAccount.cpp
+ *  AgileBook
+ *
+ *  Created by James Coplien on 9/2/08.
+ *  Copyright 2011 Gertrud &amp; Cope. All rights reserved.
+ *
+ */<font color="black"></font></code></font></i><font color="#0000FF"><code><font color="black">
+
+<i><font color="red">#include "InvestmentAccount.h"<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include "PayBillsContext.h"<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include "TransferMoneyContext.h"<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include &lt;string&gt;<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include &lt;iostream&gt;<font color="black"></font></font></i><font color="red"><font color="black">
+using namespace std;
+
+InvestmentAccount::InvestmentAccount(void):
+	availableBalance_(Euro(0.00))
+{
+}
+
+Currency InvestmentAccount::availableBalance(void) {
+	std::cout &lt;&lt; "InvestmentAccount::availableBalance returns "
+		&lt;&lt; availableBalance_ &lt;&lt; std::endl;
+	return availableBalance_;
+}
+
+
+void
+InvestmentAccount::increaseBalance(Currency c) {
+	std::cout &lt;&lt; "InvestmentAccount::increaseBalance(" &lt;&lt; c &lt;&lt; ")" &lt;&lt; std::endl;
+	availableBalance_ += c;
+}
+
+void
+InvestmentAccount::decreaseBalance(Currency c) {
+	std::cout &lt;&lt; "InvestmentAccount::decreaseBalance(" &lt;&lt; c &lt;&lt; ")" &lt;&lt; std::endl;
+	availableBalance_ -= c;
+}
+
+
+void
+InvestmentAccount::updateLog(string s, MyTime, Currency c) {
+	std::cout &lt;&lt; "account: " &lt;&lt; accountID() &lt;&lt; " InvestmentAccount::updateLog(\"" &lt;&lt;  s &lt;&lt; "\", Time, " &lt;&lt; c &lt;&lt; ")" &lt;&lt; std::endl;
+}
+
+<i><font color="red">#endif</font></i></font></font></font></font></font></font></font></font></font></font></font></code></font></pre><font color="#0000FF"><font color="black"><font color="red"><font color="black"><font color="red"><font color="black"><i><font color="red"><font color="black"></font></font></i><font color="red"><font color="black">
+
+<a id="SavingsAccount"><hr></a>
+<pre style="font-family:courier;;font-size:14px"><i><font color="#0000FF"><code>/*
+ *  SavingsAccount.h
+ *  AgileBook
+ *
+ *  Created by James Coplien on 9/2/08.
+ *  Copyright 2011 Gertrud &amp; Cope. All rights reserved.
+ *
+ */<font color="black"></font></code></font></i><font color="#0000FF"><code><font color="black">
+
+<i><font color="red">#ifndef _SAVINGSACCOUNT_H<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#define _SAVINGSACCOUNT_H<font color="black"></font></font></i><font color="red"><font color="black">
+
+<i><font color="red">#include "Account.h"<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include "TransferMoneySource.h"<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include "MyTime.h"<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include &lt;string&gt;<font color="black"></font></font></i><font color="red"><font color="black">
+
+using namespace std;
+
+class XferMoneyContext;
+class PayBillsContext;
+
+class SavingsAccount:
+		public Account,
+		public TransferMoneySink<savingsaccount> {
+friend class TransferMoneySink<savingsaccount>;	<i><font color="#0000FF">// optional<font color="black"></font></font></i><font color="#0000FF"><font color="black">
+public:
+	SavingsAccount(void);
+private:
+	<i><font color="#0000FF">// These functions can be virtual if there are<font color="black"></font></font></i><font color="#0000FF"><font color="black">
+	<i><font color="#0000FF">// specializations of SavingsAccount<font color="black"></font></font></i><font color="#0000FF"><font color="black">
+	Currency availableBalance(void);
+	void decreaseBalance(Currency);
+	void increaseBalance(Currency);
+	void updateLog(string, MyTime, Currency);
+private:
+	Currency availableBalance_;
+};</font></font></font></font></font></font></savingsaccount></savingsaccount></font></font></font></font></font></font></font></font></font></font></font></font></font></code></font></pre><font color="red"><font color="red"><font color="red"><font color="#0000FF"><font color="black"><font color="#0000FF"><font color="black"><font color="#0000FF"><font color="black">
+
+
+<pre style="font-family:courier;;font-size:14px"><i><font color="#0000FF"><code>/*
+ *  SavngsAccount.cpp
+ *  AgileBook
+ *
+ *  Created by James Coplien on 9/2/08.
+ *  Copyright 2011 Gertrud &amp; Cope. All rights reserved.
+ *
+ */<font color="black"></font></code></font></i><font color="#0000FF"><code><font color="black">
+
+<i><font color="red">#include "SavingsAccount.h"<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include "PayBillsContext.h"<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include "TransferMoneyContext.h"<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include &lt;iostream&gt;<font color="black"></font></font></i><font color="red"><font color="black">
+
+SavingsAccount::SavingsAccount(void):
+	availableBalance_(Euro(0.00))
+{
+	assert(this != NULL);
+	
+	// no application code
+	
+	assert(availableBalance_ == Euro(0.0));
+	assert(true);
+}
+
+Currency SavingsAccount::availableBalance(void) {
+	assert(this != NULL);
+	std::cout &lt;&lt; "SavingsAccount::availableBalance returns "
+		&lt;&lt; availableBalance_ &lt;&lt; std::endl;
+	assert(true);
+	return availableBalance_;
+}
+
+void SavingsAccount::decreaseBalance(Currency c) {
+	assert(this != NULL);
+	std::cout &lt;&lt; "SavingsAccount::decreaseBalance(" &lt;&lt; c &lt;&lt; ")" &lt;&lt; std::endl;
+	assert(c &gt; availableBalance_);
+	availableBalance_ -= c;
+	assert(availableBalance_ &gt; Euro(0.0));
+}
+
+const unsigned MAX_BUFFER_SIZE = 256;
+
+void SavingsAccount::updateLog(string logMessage,
+				MyTime timeOfTransaction,
+				Currency amountForTransaction) {
+	assert(this != NULL);
+	assert(logMessage.size() &gt; 0);
+	assert(logMessage.size() &lt; MAX_BUFFER_SIZE);
+	assert(timeOfTransaction &gt; MyTime("00:00:00.00 1970/1/1"));
+	std::cout &lt;&lt; "account: " &lt;&lt; accountID() &lt;&lt; " SavingsAccount::updateLog(\"" &lt;&lt; logMessage &lt;&lt; "\", MyTime, " &lt;&lt; amountForTransaction &lt;&lt; ")"
+		&lt;&lt; std::endl;
+	assert(true);
+}
+
+void SavingsAccount::increaseBalance(Currency c) {
+	assert(this != NULL);
+	std::cout &lt;&lt; "SavingsAccount::increaseBalance(" &lt;&lt; c &lt;&lt; ")" &lt;&lt; std::endl;
+	availableBalance_ += c;
+	assert(true);
+}
+
+<i><font color="red">#endif</font></i></font></font></font></font></font></font></font></font></font></code></font></pre><font color="#0000FF"><font color="black"><font color="red"><font color="black"><font color="red"><font color="black"><i><font color="red"><font color="black"></font></font></i><font color="red"><font color="black">
+
+<a id="Creditor"><hr></a>
+<pre style="font-family:courier;;font-size:14px"><i><font color="#0000FF"><code>/*
+ *  Creditor.h
+ *  AgileBook
+ *
+ *  Created by James Coplien on 9/17/08.
+ *  Copyright 2011 Gertrud &amp; Cope. All rights reserved.
+ *
+ */<font color="black"></font></code></font></i><font color="#0000FF"><code><font color="black">
+
+<i><font color="red">#ifndef _CREDITOR_H<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#define _CREDITOR_H<font color="black"></font></font></i><font color="red"><font color="black">
+
+<i><font color="red">#include "Currency.h"<font color="black"></font></font></i><font color="red"><font color="black">
+
+class MoneySink;
+
+class Creditor
+{
+public:
+	virtual MoneySink *account(void) const = 0;
+	virtual Currency amountOwed(void) const = 0;
+};
+
+class ElectricCompany: public Creditor
+{
+public:
+	ElectricCompany(void);
+	MoneySink *account(void) const;
+	Currency amountOwed(void) const;
+private:
+	MoneySink *account_;
+};
+
+class GasCompany: public Creditor
+{
+public:
+	GasCompany(void);
+	MoneySink *account(void) const;
+	Currency amountOwed(void) const;
+private:
+	MoneySink *account_;
+};
+
+<i><font color="red">#endif<font color="black"></font></font></i></font></font></font></font></font></font></font></code></font></pre><font color="#0000FF"><font color="red"><font color="black"><font color="red"><font color="black"><font color="red"><font color="black">
+
+
+<pre style="font-family:courier;;font-size:14px"><i><font color="#0000FF"><code>/*
+ *  Creditor.cpp
+ *  AgileBook
+ *
+ *  Created by James Coplien on 9/17/08.
+ *  Copyright 2011 Gertrud &amp; Cope. All rights reserved.
+ *
+ */<font color="black"></font></code></font></i><font color="#0000FF"><code><font color="black">
+
+<i><font color="red">#include "Creditor.h"<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include "SavingsAccount.h"<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include "CheckingAccount.h"<font color="black"></font></font></i><font color="red"><font color="black">
+
+ElectricCompany::ElectricCompany(void)
+{
+	account_ = new CheckingAccount;
+}
+
+MoneySink*
+ElectricCompany::account(void) const
+{
+	return account_;
+}
+
+Currency
+ElectricCompany::amountOwed(void) const
+{
+	return Euro(15.0);
+}
+
+GasCompany::GasCompany(void)
+{
+	account_ = new SavingsAccount;
+	account_-&gt;increaseBalance(Euro(500.00));	<i><font color="#0000FF">// start off with a balance of 500<font color="black"></font></font></i><font color="#0000FF"><font color="black">
+}
+
+MoneySink*
+GasCompany::account(void) const
+{
+	return account_;
+}
+	
+Currency
+GasCompany::amountOwed(void) const
+{
+	return Euro(18.76);
+}</font></font></font></font></font></font></font></font></font></code></font></pre><font color="#0000FF"><font color="red"><font color="red"><font color="black"><font color="red"><font color="black"><font color="#0000FF"><font color="black">
+
+
+<pre><code>/*</code></pre><a id="Utilities"></a>
+<ul id="tabs">
+<li id="LITop"><a href="#Top">Top of File</a></li>
+<li id="LIDomain"><a href="#Domain">Data Classes</a></li>
+<li id="LIContext"><a href="#Context">Context</a></li>
+<li id="LIRoles"><a href="#Roles">Roles</a></li>
+<li id="LIUtilities"><a href="#Utilities">Utilities</a></li>
+<li id="LIMain"><a href="#Main">Main</a></li>
+</ul>   
+<h2>Utilities</h2><pre><code>*/</code></pre>
+
+<pre style="font-family:courier;;font-size:14px"><i><font color="#0000FF"><code>/*
+ *  Currency.h
+ *  AgileBook
+ *
+ *  Created by James Coplien on 7/31/09.
+ *  Copyright 2011 Gertrud &amp; Cope. All rights reserved.
+ *
+ */<font color="black"></font></code></font></i><font color="#0000FF"><code><font color="black">
+
+
+<i><font color="red">#ifndef _CURRENCY_H<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#define _CURRENCY_H<font color="black"></font></font></i><font color="red"><font color="black">
+
+<i><font color="red">#include &lt;string&gt;<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include &lt;sstream&gt;<font color="black"></font></font></i><font color="red"><font color="black">
+
+class Currency;
+
+class CurrencyBase {
+friend class Currency;
+public:
+	virtual CurrencyBase &amp;operator+=(const Currency&amp; amount) = 0;
+	virtual CurrencyBase &amp;operator-=(const Currency&amp; amount) = 0;
+	virtual CurrencyBase &amp;operator=(const Currency&amp; amount) = 0;
+	CurrencyBase(void): referenceCount_(1) { }
+	virtual ~CurrencyBase() {  }
+	virtual std::string name(void) const = 0;
+	virtual std::string sign(void) const = 0;
+	virtual double amountInEuro(void) const = 0;
+	virtual std::string asString(void) const = 0;
+protected:
+	unsigned referenceCount_;
+};
+
+
+class Currency {
+public:
+	virtual Currency &amp;operator+=(const Currency&amp; amount) {
+		*actualCurrency_ += amount;
+		return *this;
+	}
+	virtual Currency &amp;operator-=(const Currency&amp; amount) {
+		*actualCurrency_ -= amount;
+		return *this;
+	}
+	virtual Currency &amp;operator=(const Currency&amp; amount) {
+		amount.actualCurrency_-&gt;referenceCount_++;
+		if (--actualCurrency_-&gt;referenceCount_ &lt;= 0) delete actualCurrency_;
+		actualCurrency_ = amount.actualCurrency_;
+		return *this;
+	}
+	Currency(const Currency&amp; amount) {
+		(actualCurrency_ = amount.actualCurrency_)-&gt;referenceCount_++;
+	}
+	Currency(void);
+	virtual ~Currency() { if (--actualCurrency_-&gt;referenceCount_ &lt;= 0) delete actualCurrency_; }
+	virtual std::string name(void) const { return actualCurrency_-&gt;name(); }
+	virtual std::string sign(void) const { return actualCurrency_-&gt;sign(); }
+	virtual double amountInEuro(void) const { return actualCurrency_-&gt;amountInEuro(); }
+	virtual std::string asString(void) const { return actualCurrency_-&gt;asString(); }
+friend std::ostream &amp;operator&lt;&lt;(std::ostream &amp;stream, Currency ¤cy)
+	{
+		stream &lt;&lt; currency.asString();
+		return stream;
+	}
+	bool operator&lt;(const Currency &amp;other) { return amountInEuro() &lt; other.amountInEuro(); }
+	bool operator==(const Currency &amp;other) { return amountInEuro() == other.amountInEuro(); }
+	bool operator&gt;(const Currency &amp;other) { return amountInEuro() &gt; other.amountInEuro(); }
+	bool operator&lt;=(const Currency &amp;other) { return amountInEuro() &lt;= other.amountInEuro(); }
+	bool operator&gt;=(const Currency &amp;other) { return amountInEuro() &gt;= other.amountInEuro(); }
+	Currency(CurrencyBase *derivedClassThis): actualCurrency_(derivedClassThis) { }
+private:
+	CurrencyBase *actualCurrency_;
+};
+
+
+class Euro: public CurrencyBase {
+friend class Currency;
+public:
+	operator Currency(void) {
+		return Currency(this-&gt;copy());
+	}
+	CurrencyBase *copy(void) const {
+		return new Euro(amount_);
+	}
+	virtual Euro &amp;operator+=(const Currency&amp; amount) {
+		amount_ += amount.amountInEuro();
+		return *this;
+	}
+	virtual Euro &amp;operator-=(const Currency&amp; amount) {
+		amount_ -= amount.amountInEuro();
+		return *this;
+	}
+	virtual Euro &amp;operator=(const Currency&amp; amount) {
+		amount_ = amount.amountInEuro();
+		return *this;
+	}
+	Euro(double amount = 0.0): amount_(amount) { }
+	virtual std::string name(void) const { return "Euro"; }
+	virtual std::string sign(void) const { return "€"; }
+	virtual double amountInEuro(void) const { return amount_; }
+	virtual std::string asString(void) const {
+		std::ostringstream stream;
+		stream &lt;&lt; amount_;
+		return stream.str();
+	}
+private:
+	double amount_;
+};
+
+inline Currency::Currency(void): actualCurrency_(new Euro) {  }
+
+<i><font color="red">#endif<font color="black"></font></font></i></font></font></font></font></font></font></font></font></font></code></font></pre><font color="#0000FF"><font color="red"><font color="black"><font color="red"><font color="black"><font color="red"><font color="black">
+<hr>
+
+<pre style="font-family:courier;;font-size:14px"><i><font color="#0000FF"><code>/*
+ *  Globals.h
+ *  AgileBook
+ *
+ *  Created by James Coplien on 9/2/08.
+ *  Copyright 2011 Gertrud &amp; Cope. All rights reserved.
+ *
+ */<font color="black"></font></code></font></i><font color="#0000FF"><code><font color="black">
+
+<i><font color="red">#ifndef _GLOBALS_H<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#define _GLOBALS_H<font color="black"></font></font></i><font color="red"><font color="black">
+
+<i><font color="red">#include "MyTime.h"<font color="black"></font></font></i><font color="red"><font color="black">
+
+extern void endTransaction(void);
+extern void beginTransaction(void);
+extern MyTime DateTime(void);
+
+<i><font color="red">#endif<font color="black"></font></font></i></font></font></font></font></font></font></font></code></font></pre><font color="#0000FF"><font color="red"><font color="black"><font color="red"><font color="black"><font color="red"><font color="black">
+
+<pre style="font-family:courier;;font-size:14px"><i><font color="#0000FF"><code>/*
+ *  GlobalsImplementation.h
+ *  AgileBook
+ *
+ *  Created by James Coplien on 9/2/08.
+ *  Copyright 2011 Gertrud &amp; Cope. All rights reserved.
+ *
+ */<font color="black"></font></code></font></i><font color="#0000FF"><code><font color="black">
+ 
+ 
+<i><font color="red">#include "MyTime.h"<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include &lt;iostream&gt;<font color="black"></font></font></i><font color="red"><font color="black">
+
+void endTransaction(void) {
+	std::cout &lt;&lt; "::endTransaction(void)" &lt;&lt; std::endl;
+}
+
+void beginTransaction(void) {
+	std::cout &lt;&lt; "::beginTransaction(void)" &lt;&lt; std::endl;
+}
+
+MyTime DateTime(void) {
+	return 0;
+}</font></font></font></font></font></code></font></pre><font color="#0000FF"><font color="black"><font color="red"><font color="black"><font color="red"><font color="black">
+
+<hr>
+
+<pre style="font-family:courier;;font-size:14px"><i><font color="#0000FF"><code>/*
+ *  MyExceptions.h
+ *  AgileBook
+ *
+ *  Created by James Coplien on 9/2/08.
+ *  Copyright 2011 Gertrud &amp; Cope. All rights reserved.
+ *
+ */<font color="black"></font></code></font></i><font color="#0000FF"><code><font color="black">
+
+<i><font color="red">#ifndef _MYEXCEPTIONS_H<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#define _MYEXCEPTIONS_H<font color="black"></font></font></i><font color="red"><font color="black">
+
+class InsufficientFunds {
+public:
+	InsufficientFunds(void);
+};
+
+
+<i><font color="red">#endif<font color="black"></font></font></i></font></font></font></font></font></code></font></pre><font color="#0000FF"><font color="red"><font color="black"><font color="red"><font color="black"><font color="red"><font color="black">
+
+<hr>
+
+<pre style="font-family:courier;;font-size:14px"><i><font color="#0000FF"><code>/*
+ *  MyTime.h
+ *  AgileBook
+ *
+ *  Created by James Coplien on 9/2/08.
+ *  Copyright 2011 Gertrud &amp; Cope. All rights reserved.
+ *
+ */<font color="black"></font></code></font></i><font color="#0000FF"><code><font color="black">
+
+<i><font color="red">#ifndef _MYTIME_H<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#define _MYTIME_H<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include &lt;string&gt;<font color="black"></font></font></i><font color="red"><font color="black">
+
+class MyTime {
+public:
+	MyTime(void);
+	MyTime(long long);
+	MyTime(std::string timeAsString);
+	~MyTime();
+	MyTime(const MyTime &amp;t);
+	MyTime &amp;operator=(const MyTime &amp;t);
+	bool operator&gt;(const MyTime &amp;t);
+};
+
+
+<i><font color="red">#endif<font color="black"></font></font></i></font></font></font></font></font></font></font></code></font></pre><font color="#0000FF"><font color="red"><font color="black"><font color="red"><font color="black"><font color="red"><font color="black">
+
+<pre style="font-family:courier;;font-size:14px"><i><font color="#0000FF"><code>/*
+ *  MyTimeImplementation.h
+ *  AgileBook
+ *
+ *  Created by James Coplien on 9/2/08.
+ *  Copyright 2011 Gertrud &amp; Cope. All rights reserved.
+ *
+ */<font color="black"></font></code></font></i><font color="#0000FF"><code><font color="black">
+
+<i><font color="red">#include "MyTime.h"<font color="black"></font></font></i><font color="red"><font color="black">
+
+MyTime::MyTime(long long) { }
+MyTime::MyTime(std::string timeAsString) { }
+MyTime::~MyTime() { }
+MyTime::MyTime(const MyTime &amp;t) { }
+MyTime &amp;MyTime::operator=(const MyTime &amp;t) { return *this; }
+bool MyTime::operator&gt;(const MyTime &amp;t) { return true; }</font></font></font></code></font></pre><font color="#0000FF"><font color="black"><font color="red"><font color="black">
+
+
+<pre><code>/*</code></pre><a id="Context"></a>
+<ul id="tabs">
+<li id="LITop"><a href="#Top">Top of File</a></li>
+<li id="LIDomain"><a href="#Domain">Data Classes</a></li>
+<li id="LIContext"><a href="#Context">Context</a></li>
+<li id="LIRoles"><a href="#Roles">Roles</a></li>
+<li id="LIUtilities"><a href="#Utilities">Utilities</a></li>
+<li id="LIMain"><a href="#Main">Main</a></li>
+</ul>   
+<h2>Contexts</h2><pre><code>*/</code></pre>
+
+<pre style="font-family:courier;;font-size:14px"><i><font color="#0000FF"><code>/*
+ *  Context.h
+ *  AgileBook
+ *
+ *  Created by James Coplien on 1/14/09.
+ *  Copyright 2011 Gertrud &amp; Cope. All rights reserved.
+ *
+ */<font color="black"></font></code></font></i><font color="#0000FF"><code><font color="black">
+
+<i><font color="red">#ifndef _CONTEXT_H<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#define _CONTEXT_H<font color="black"></font></font></i><font color="red"><font color="black">
+
+class Context {
+public:
+	Context(void);
+	virtual ~Context();
+public:
+	static Context *currentContext_;
+private:
+	Context *parentContext_;
+};</font></font></font></font></font></code></font></pre><font color="#0000FF"><font color="black"><font color="red"><font color="black"><font color="red"><font color="black">
+
+
+
+<pre style="font-family:courier;;font-size:14px"><i><font color="#0000FF"><code>/*
+ *  Context.cpp
+ *  AgileBook
+ *
+ *  Created by James Coplien on 1/14/09.
+ *  Copyright 2011 Gertrud &amp; Cope. All rights reserved.
+ *
+ */<font color="black"></font></code></font></i><font color="#0000FF"><code><font color="black">
+
+<i><font color="red">#include "Context.h"<font color="black"></font></font></i><font color="red"><font color="black">
+
+Context::Context(void) {
+	parentContext_ = currentContext_;
+	currentContext_ = this;
+}
+
+Context::~Context() {
+	currentContext_ = parentContext_;
+}
+
+Context *Context::currentContext_ = NULL;
+
+
+
+<i><font color="red">#endif<font color="black"></font></font></i></font></font></font></code></font></pre><font color="#0000FF"><font color="black"><font color="red"><font color="black"><font color="red"><font color="black">
+
+
+<a id="TransferMoneyContext"><hr></a>
+<pre style="font-family:courier;;font-size:14px"><i><font color="#0000FF"><code>/*
+ *  TransferMoneyContext.h
+ *  AgileBook
+ *
+ *  Created by James Coplien on 9/13/08.
+ *  Copyright 2011 Gertrud &amp; Cope. All rights reserved.
+ *
+ */<font color="black"></font></code></font></i><font color="#0000FF"><code><font color="black">
+ 
+<i><font color="#0000FF">// TransferMoneyContext knows how to find the objects for a given<font color="black"></font></font></i><font color="#0000FF"><font color="black">
+<i><font color="#0000FF">// use case invocation; it associates those objects with<font color="black"></font></font></i><font color="#0000FF"><font color="black">
+<i><font color="#0000FF">// the roles they play in a Use Case of this type; and it<font color="black"></font></font></i><font color="#0000FF"><font color="black">
+<i><font color="#0000FF">// publishes those interface bindings for use by the<font color="black"></font></font></i><font color="#0000FF"><font color="black">
+<i><font color="#0000FF">// method-ful roles that participate in the use case.<font color="black"></font></font></i><font color="#0000FF"><font color="black">
+ 
+<i><font color="red">#ifndef _XFERMONEYCONTEXT_H<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#define _XFERMONEYCONTEXT_H<font color="black"></font></font></i><font color="red"><font color="black">
+
+<i><font color="red">#include "Account.h"<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include "Context.h"<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include "Currency.h"<font color="black"></font></font></i><font color="red"><font color="black">
+class MoneySource;
+class MoneySink;
+
+class TransferMoneyContext: public Context
+{
+public:
+	TransferMoneyContext(void);
+	TransferMoneyContext(Currency amount, MoneySource *src, MoneySink *destination);
+	void doit(void);
+	MoneySource *sourceAccount(void) const;
+	MoneySink *destinationAccount(void) const;
+	Currency amount(void) const;
+private:
+	void lookupBindings(void);
+	MoneySource *sourceAccount_;
+	MoneySink *destinationAccount_;
+	Currency amount_;
+};</font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></code></font></pre><font color="#0000FF"><font color="#0000FF"><font color="#0000FF"><font color="red"><font color="black"><font color="red"><font color="black"><font color="red"><font color="black">
+ 
+ 
+<pre style="font-family:courier;;font-size:14px"><i><font color="#0000FF"><code>/*
+ *  TransferMoneyContext.cpp
+ *  AgileBook
+ *
+ *  Created by James Coplien on 9/13/08.
+ *  Copyright 2011 Gertrud &amp; Cope. All rights reserved.
+ *
+ */<font color="black"></font></code></font></i><font color="#0000FF"><code><font color="black">
+
+<i><font color="red">#include "TransferMoneyContext.h"<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include "Currency.h"<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include "MoneySource.h"<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include "MoneySink.h"<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include "InvestmentAccount.h"<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include "SavingsAccount.h"<font color="black"></font></font></i><font color="red"><font color="black">
+
+TransferMoneyContext::TransferMoneyContext(void): Context()
+{
+	lookupBindings();
+}
+
+TransferMoneyContext::TransferMoneyContext(Currency amount, MoneySource *source, MoneySink *destination):
+	Context()
+{
+	<i><font color="#0000FF">// Copy the rest of the stuff<font color="black"></font></font></i><font color="#0000FF"><font color="black">
+	sourceAccount_ = source;
+	destinationAccount_ = destination;
+	amount_ = amount;
+}
+
+void
+TransferMoneyContext::doit(void)
+{
+	sourceAccount()-&gt;transferTo(amount());
+}
+
+void
+TransferMoneyContext::lookupBindings(void)
+{
+	<i><font color="#0000FF">// These are somewhat arbitrary and for illustrative<font color="black"></font></font></i><font color="#0000FF"><font color="black">
+	<i><font color="#0000FF">// purposes. The simulate a database lookup<font color="black"></font></font></i><font color="#0000FF"><font color="black">
+	InvestmentAccount *investmentAccount = new InvestmentAccount;
+	investmentAccount-&gt;increaseBalance(Euro(100.00));	<i><font color="#0000FF">// prime it with some money<font color="black"></font></font></i><font color="#0000FF"><font color="black">
+
+	sourceAccount_ = investmentAccount;
+	destinationAccount_ = new SavingsAccount;
+	destinationAccount_-&gt;increaseBalance(Euro(500.00));	<i><font color="#0000FF">// start it off with money<font color="black"></font></font></i><font color="#0000FF"><font color="black">
+	amount_ = Euro(30.00);
+}
+
+MoneySource*
+TransferMoneyContext::sourceAccount(void) const
+{
+	return sourceAccount_;
+}
+
+MoneySink*
+TransferMoneyContext::destinationAccount(void) const
+{
+	return destinationAccount_;
+}
+
+Currency
+TransferMoneyContext::amount(void) const
+{
+	return amount_;
+}
+ 
+<i><font color="red">#endif<font color="black"></font></font></i></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></code></font></pre><font color="red"><font color="red"><font color="#0000FF"><font color="#0000FF"><font color="black"><font color="#0000FF"><font color="black"><font color="red"><font color="black">
+
+<hr>
+
+<pre style="font-family:courier;;font-size:14px"><i><font color="#0000FF"><code>/*
+ *  PayBillsContext.h
+ *  AgileBook
+ *
+ *  Created by James Coplien on 9/13/08.
+ *  Copyright 2011 Gertrud &amp; Cope. All rights reserved.
+ *
+ */<font color="black"></font></code></font></i><font color="#0000FF"><code><font color="black">
+ 
+ 
+<i><font color="red">#ifndef _PAYBILLSCONTEXT_H<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#define _PAYBILLSCONTEXT_H<font color="black"></font></font></i><font color="red"><font color="black">
+
+<i><font color="red">#include "Account.h"<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include "Currency.h"<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include "Context.h"<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include &lt;list&gt;<font color="black"></font></font></i><font color="red"><font color="black">
+
+class MoneySource;
+class Creditor;
+
+class PayBillsContext: public Context
+{
+public:
+	PayBillsContext(void);
+	void doit(void);
+	MoneySource *sourceAccount(void) const;
+	std::list<creditor*> creditors(void) const;
+private:
+	void lookupBindings(void);
+	MoneySource *sourceAccount_;
+	std::list<creditor *=""> creditors_;
+};</creditor></creditor*></font></font></font></font></font></font></font></font></font></font></font></font></font></code></font></pre><font color="#0000FF"><font color="red"><font color="black"><font color="red"><font color="black"><font color="red"><font color="black">
+ 
+
+ 
+<pre style="font-family:courier;;font-size:14px"><i><font color="#0000FF"><code>/*
+ *  PayBillsContext.cpp
+ *  AgileBook
+ *
+ *  Created by James Coplien on 9/17/08.
+ *  Copyright 2011 Gertrud &amp; Cope. All rights reserved.
+ *
+ */<font color="black"></font></code></font></i><font color="#0000FF"><code><font color="black">
+
+<i><font color="red">#include "PayBillsContext.h"<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include "MoneySource.h"<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include "MoneySink.h"<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include "InvestmentAccount.h"<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include "SavingsAccount.h"<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include "Creditor.h"<font color="black"></font></font></i><font color="red"><font color="black">
+
+PayBillsContext::PayBillsContext(void): Context()
+{
+	lookupBindings();
+}
+
+void
+PayBillsContext::doit(void)
+{
+	sourceAccount()-&gt;payBills();
+}
+
+void
+PayBillsContext::lookupBindings(void)
+{
+	<i><font color="#0000FF">// These are somewhat arbitrary and for illustrative<font color="black"></font></font></i><font color="#0000FF"><font color="black">
+	<i><font color="#0000FF">// purposes. The simulate a database lookup<font color="black"></font></font></i><font color="#0000FF"><font color="black">
+	InvestmentAccount *investmentAccount = new InvestmentAccount;
+	investmentAccount-&gt;increaseBalance(Euro(100.00));	<i><font color="#0000FF">// prime it with some money<font color="black"></font></font></i><font color="#0000FF"><font color="black">
+	sourceAccount_ = investmentAccount;
+
+	creditors_.push_back(new ElectricCompany);
+	creditors_.push_back(new GasCompany);
+}
+
+MoneySource*
+PayBillsContext::sourceAccount(void) const
+{
+	return sourceAccount_;
+}
+
+std::list<creditor*>
+PayBillsContext::creditors(void) const
+{
+	return creditors_;
+}
+
+ 
+<i><font color="red">#endif<font color="black"></font></font></i></creditor*></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></code></font></pre><font color="red"><font color="red"><font color="#0000FF"><font color="#0000FF"><font color="black"><font color="#0000FF"><font color="black"><font color="red"><font color="black">
+
+
+<pre><code>/*</code></pre><a id="Roles"></a>
+<ul id="tabs">
+<li id="LITop"><a href="#Top">Top of File</a></li>
+<li id="LIDomain"><a href="#Domain">Data Classes</a></li>
+<li id="LIContext"><a href="#Context">Context</a></li>
+<li id="LIRoles"><a href="#Roles">Roles</a></li>
+<li id="LIUtilities"><a href="#Utilities">Utilities</a></li>
+<li id="LIMain"><a href="#Main">Main</a></li>
+</ul>   
+<h2>Roles</h2><pre><code>*/</code></pre>
+
+
+<a id="MoneySource"></a>
+<pre style="font-family:courier;;font-size:14px"><i><font color="#0000FF"><code>/*
+ *  MoneySource.h
+ *  AgileBook
+ *
+ *  Created by James Coplien on 9/2/08.
+ *  Copyright 2011 Gertrud &amp; Cope. All rights reserved.
+ *
+ */<font color="black"></font></code></font></i><font color="#0000FF"><code><font color="black">
+
+<i><font color="red">#ifndef _MONEYSOURCE_H<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#define _MONEYSOURCE_H<font color="black"></font></font></i><font color="red"><font color="black">
+
+<i><font color="red">#include "MyTime.h"<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include &lt;string&gt;<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include &lt;list&gt;<font color="black"></font></font></i><font color="red"><font color="black">
+using namespace std;
+
+class MoneySink;
+class Creditor;
+class PayBillsContext;
+class TransferMoneyContext;
+
+
+class MoneySource {
+public:
+	virtual void transferTo(Currency amount) = 0;
+	virtual void decreaseBalance(Currency amount) = 0;
+	virtual void payBills(void) = 0;
+};
+
+<i><font color="red">#endif<font color="black"></font></font></i></font></font></font></font></font></font></font></font></font></font></font></code></font></pre><font color="#0000FF"><font color="red"><font color="black"><font color="red"><font color="black"><font color="red"><font color="black">
+
+<a id="MoneySink"><hr></a>
+<pre style="font-family:courier;;font-size:14px"><i><font color="#0000FF"><code>/*
+ *  MoneySink.h
+ *  AgileBook
+ *
+ *  Created by James Coplien on 9/2/08.
+ *  Copyright 2011 Gertrud &amp; Cope. All rights reserved.
+ *
+ */<font color="black"></font></code></font></i><font color="#0000FF"><code><font color="black">
+
+<i><font color="red">#ifndef _MONEYSINK_H<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#define _MONEYSINK_H<font color="black"></font></font></i><font color="red"><font color="black">
+
+<i><font color="red">#include &lt;iostream&gt;<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include &lt;string&gt;<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include "MyTime.h"<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include "Currency.h"<font color="black"></font></font></i><font color="red"><font color="black">
+
+using namespace std;
+
+class MoneySource;
+
+class MoneySink {
+public:
+	virtual void increaseBalance(Currency amount) = 0;
+	virtual void updateLog(string, MyTime, Currency amount) = 0;
+};
+
+<i><font color="red">#endif<font color="black"></font></font></i></font></font></font></font></font></font></font></font></font></font></font></font></font></code></font></pre><font color="#0000FF"><font color="red"><font color="black"><font color="red"><font color="black"><font color="red"><font color="black">
+
+<a id="TransferMoneySource"><hr></a>
+<pre style="font-family:courier;;font-size:14px"><i><font color="#0000FF"><code>/*
+ *  TransferMoneySource.h
+ *  AgileBook
+ *
+ *  Created by James Coplien on 9/2/08.
+ *  Copyright 2011 Gertrud &amp; Cope. All rights reserved.
+ *
+ */<font color="black"></font></code></font></i><font color="#0000FF"><code><font color="black">
+
+<i><font color="red">#ifndef _TRANSFERFUNDS_H<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#define _TRANSFERFUNDS_H<font color="black"></font></font></i><font color="red"><font color="black">
+
+<i><font color="red">#include "Currency.h"<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include "MoneySource.h"<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include "MoneySink.h"<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include "Creditor.h"<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include "MyExceptions.h"<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include "Globals.h"<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include "PayBillsContext.h"<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include "TransferMoneyContext.h"<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include &lt;string&gt;<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include &lt;list&gt;<font color="black"></font></font></i><font color="red"><font color="black">
+
+<i><font color="red">#define SELF static_cast&lt;const ConcreteDerived*&gt;(this)<font color="black"></font></font></i><font color="red"><font color="black">
+
+<i><font color="red">#define RECIPIENT (((dynamic_cast&lt;TransferMoneyContext*&gt;(Context::currentContext_)?	\ <font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">			dynamic_cast&lt;TransferMoneyContext*&gt;(Context::currentContext_):	\ <font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">			(throw("dynamic cast failed"), static_cast&lt;TransferMoneyContext*&gt;(NULL))	\ <font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">			)-&gt;destinationAccount()))<font color="black"></font></font></i><font color="red"><font color="black">
+
+<i><font color="#0000FF">// #define RECIPIENT ((static_cast&lt;TransferMoneyContext*&gt;(Context::currentContext_)-&gt;destinationAccount()))
+<font color="black"></font></font></i><font color="#0000FF"><font color="black">
+
+<i><font color="red">#define CREDITORS ((static_cast&lt;PayBillsContext*&gt;(Context::currentContext_)-&gt;creditors()))<font color="black"></font></font></i><font color="red"><font color="black">
+
+using namespace std;
+
+template &lt;class ConcreteDerived&gt;
+class TransferMoneySource: public MoneySource
+{
+
+public:
+	<i><font color="#0000FF">// Role behaviors<font color="black"></font></font></i><font color="#0000FF"><font color="black">
+	void payBills(void) {
+		<i><font color="#0000FF">// While object contexts are changing, we don't want to<font color="black"></font></font></i><font color="#0000FF"><font color="black">
+		<i><font color="#0000FF">// have an open iterator on an external object. Make a<font color="black"></font></font></i><font color="#0000FF"><font color="black">
+		<i><font color="#0000FF">// local copy.<font color="black"></font></font></i><font color="#0000FF"><font color="black">
+		std::list<creditor*> creditors = CREDITORS;
+		std::list<creditor*>::iterator iter = creditors.begin();
+		for (; iter != creditors.end(); iter++ ) {
+			try {
+				<i><font color="#0000FF">// Note that here we invoke another Use Case<font color="black"></font></font></i><font color="#0000FF"><font color="black">
+				TransferMoneyContext transferTheFunds((*iter)-&gt;amountOwed(),
+																SELF,
+																(*iter)-&gt;account());
+				transferTheFunds.doit();
+			} catch (InsufficientFunds) {
+				throw;
+			}
+		}
+	}
+
+	void transferTo(Currency amount) {
+		<i><font color="#0000FF">// This code is reviewable and<font color="black"></font></font></i><font color="#0000FF"><font color="black">
+		<i><font color="#0000FF">// meaningfully testable with stubs!<font color="black"></font></font></i><font color="#0000FF"><font color="black">
+		beginTransaction();
+		if (SELF-&gt;availableBalance() &lt; amount) {
+			endTransaction();
+			throw InsufficientFunds();
+		} else {
+			SELF-&gt;decreaseBalance(amount);
+			RECIPIENT-&gt;increaseBalance(amount);
+			SELF-&gt;updateLog("Transfer Out", DateTime(), amount);
+			RECIPIENT-&gt;updateLog("Transfer In", DateTime(), amount);
+		}
+		gui-&gt;displayScreen(SUCCESS_DEPOSIT_SCREEN)
+		endTransaction();
+	}
+public:
+	TransferMoneySource(void)  { }
+};
+
+
+<a id="TransferMoneySink"></a>
+template &lt;class ConcreteDerived&gt;
+class TransferMoneySink: public MoneySink
+{
+public:
+	void transferFrom(Currency amount) {
+		SELF-&gt;increaseBalance(amount);
+		SELF-&gt;updateLog("Transfer in", DateTime(), amount);
+	}
+
+public:
+	TransferMoneySink(void) {
+	}
+
+};
+
+
+
+<i><font color="red">#endif<font color="black"></font></font></i></font></font></font></font></font></font></creditor*></creditor*></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></code></font></pre><font color="red"><font color="red"><font color="#0000FF"><font color="#0000FF"><font color="black"><font color="#0000FF"><font color="black"><font color="red"><font color="black">
+
+
+<pre><code>/*</code></pre><a id="Main"></a>
+<ul id="tabs">
+<li id="LITop"><a href="#Top">Top of File</a></li>
+<li id="LIDomain"><a href="#Domain">Data Classes</a></li>
+<li id="LIContext"><a href="#Context">Context</a></li>
+<li id="LIRoles"><a href="#Roles">Roles</a></li>
+<li id="LIUtilities"><a href="#Utilities">Utilities</a></li>
+<li id="LIMain"><a href="#Main">Main</a></li>
+</ul>   
+<h2>Main</h2><pre><code>*/</code></pre>
+
+
+<pre><code><i><font color="#0000FF">//<font color="black"></font></font></i><font color="#0000FF"><font color="black">
+<i><font color="#0000FF">//  main.cpp<font color="black"></font></font></i><font color="#0000FF"><font color="black">
+<i><font color="#0000FF">//  AgileBook<font color="black"></font></font></i><font color="#0000FF"><font color="black">
+<i><font color="#0000FF">//<font color="black"></font></font></i><font color="#0000FF"><font color="black">
+<i><font color="#0000FF">//  Created by James Coplien on 9/2/08.<font color="black"></font></font></i><font color="#0000FF"><font color="black">
+<i><font color="#0000FF">//  Copyright Gertrud &amp; Cope 2011. All rights reserved.<font color="black"></font></font></i><font color="#0000FF"><font color="black">
+<i><font color="#0000FF">//<font color="black"></font></font></i><font color="#0000FF"><font color="black">
+
+<i><font color="red">#include "TransferMoneyContext.h"<font color="black"></font></font></i><font color="red"><font color="black">
+<i><font color="red">#include "PayBillsContext.h"<font color="black"></font></font></i><font color="red"><font color="black">
+
+int main() {
+	TransferMoneyContext *aNewUseCase = new TransferMoneyContext;
+	aNewUseCase-&gt;doit();
+	delete aNewUseCase;
+	
+	PayBillsContext *anotherNewUseCase = new PayBillsContext;
+	anotherNewUseCase-&gt;doit();
+	delete anotherNewUseCase;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></code></pre><font color="#0000FF"><font color="#0000FF"><font color="#0000FF"><font color="black"><font color="red"><font color="black"><font color="red"><font color="black">
+
+
+</font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font>

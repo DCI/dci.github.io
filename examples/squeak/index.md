@@ -1,13 +1,6 @@
 ---
 layout: default
 title: Squeak Examples
-category: examples
-
-examples:
-  - short: BB2Shapes
-    description: An animation of a universe of interacting objects
-  - short: BB3Greed
-    description: A clumsy implementation of the game of Greed
 ---
 
 # DCI in Squeak
@@ -46,5 +39,5 @@ More about the Squeak language can be found at http://wiki.squeak.org/squeak/185
 The links below give readable listings of the Squeak/DCI examples.
 The listings have been produced programmatically from a Squeak image containing the BabyIDE development environment and all examples.
 
-{% for link in page.examples %}
-- [{{link.short}}]({{link.short}}/) - {{link.description}}{% endfor %}
+- [BB2Shapes](BB2Shapes) - An animation of a universe of interacting objects
+- [BB3Greed](BB3Greed) - A clumsy implementation of the game of Greed
