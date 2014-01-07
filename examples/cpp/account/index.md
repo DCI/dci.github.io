@@ -12,7 +12,7 @@ tabs:
 
 ## <a name="Data Classes">[Data Classes](#Data Classes)
 
-{% highlight cpp linenos %}
+```cpp
 /*
  *  Account.h
  *  AgileBook
@@ -38,9 +38,9 @@ private:
 };
 
 #endif
-{% endhighlight %}
+```
 
-{% highlight cpp linenos %}
+```cpp
 /*
  *  CheckingAccount.h
  *  AgileBook
@@ -82,9 +82,9 @@ private:
 };
 
 #endif
-{% endhighlight %}
+```
 
-{% highlight cpp linenos %}
+```cpp
 /*
  *  InvestmentAccount.h
  *  AgileBook
@@ -168,9 +168,9 @@ InvestmentAccount::updateLog(string s, MyTime, Currency c) {
 }
 
 #endif
-{% endhighlight %}
+```
 
-{% highlight cpp linenos %}
+```cpp
 /*
  *  SavingsAccount.h
  *  AgileBook
@@ -272,9 +272,9 @@ void SavingsAccount::increaseBalance(Currency c) {
 }
 
 #endif
-{% endhighlight %}
+```
 
-{% highlight cpp linenos %}
+```cpp
 /*
  *  Creditor.h
  *  AgileBook
@@ -319,9 +319,9 @@ private:
 };
 
 #endif
-{% endhighlight %}
+```
 
-{% highlight cpp linenos %}
+```cpp
 /*
  *  Creditor.cpp
  *  AgileBook
@@ -369,11 +369,11 @@ GasCompany::amountOwed(void) const
 {
 	return Euro(18.76);
 }
-{% endhighlight %}
+```
 
 ## <a name="Utilities">[Utilities](#Utilities)
 
-{% highlight cpp linenos %}
+```cpp
 /*
  *  Currency.h
  *  AgileBook
@@ -487,9 +487,9 @@ private:
 inline Currency::Currency(void): actualCurrency_(new Euro) {  }
 
 #endif
-{% endhighlight %}
+```
 
-{% highlight cpp linenos %}
+```cpp
 /*
  *  Globals.h
  *  AgileBook
@@ -533,9 +533,9 @@ void beginTransaction(void) {
 MyTime DateTime(void) {
 	return 0;
 }
-{% endhighlight %}
+```
 
-{% highlight cpp linenos %}
+```cpp
 /*
  *  MyExceptions.h
  *  AgileBook
@@ -555,9 +555,9 @@ public:
 
 
 #endif
-{% endhighlight %}
+```
 
-{% highlight cpp linenos %}
+```cpp
 /*
  *  MyTime.h
  *  AgileBook
@@ -601,11 +601,11 @@ MyTime::~MyTime() { }
 MyTime::MyTime(const MyTime &t) { }
 MyTime &MyTime::operator=(const MyTime &t) { return *this; }
 bool MyTime::operator>(const MyTime &t) { return true; }
-{% endhighlight %}
+```
 
 ## <a name="Context">[Context](#Context)
 
-{% highlight cpp linenos %}
+```cpp
 /*
  *  Context.h
  *  AgileBook
@@ -650,9 +650,9 @@ Context::~Context() {
 Context *Context::currentContext_ = NULL;
 
 #endif
-{% endhighlight %}
+```
 
-{% highlight cpp linenos %}
+```cpp
 /*
  *  TransferMoneyContext.h
  *  AgileBook
@@ -761,9 +761,9 @@ TransferMoneyContext::amount(void) const
 }
  
 #endif
-{% endhighlight %}
+```
 
-{% highlight cpp linenos %}
+```cpp
 /*
  *  PayBillsContext.h
  *  AgileBook
@@ -851,11 +851,11 @@ PayBillsContext::creditors(void) const
 
  
 #endif
-{% endhighlight %}
+```
 
 ## <a name="Roles">[Roles](#Roles)
 
-{% highlight cpp linenos %}
+```cpp
 /*
  *  MoneySource.h
  *  AgileBook
@@ -887,9 +887,9 @@ public:
 };
 
 #endif
-{% endhighlight %}
+```
 
-{% highlight cpp linenos %}
+```cpp
 /*
  *  MoneySink.h
  *  AgileBook
@@ -918,9 +918,9 @@ public:
 };
 
 #endif
-{% endhighlight %}
+```
 
-{% highlight cpp linenos %}
+```cpp
 /*
  *  TransferMoneySource.h
  *  AgileBook
@@ -1018,11 +1018,11 @@ public:
 };
 
 #endif
-{% endhighlight %}
+```
 
 ## <a name="Main">[Main](#Main)
 
-{% highlight cpp linenos %}
+```cpp
 //
 //  main.cpp
 //  AgileBook
@@ -1043,4 +1043,4 @@ int main() {
 	anotherNewUseCase->doit();
 	delete anotherNewUseCase;
 }
-{% endhighlight %}
+```
